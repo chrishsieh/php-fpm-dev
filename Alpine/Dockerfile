@@ -18,15 +18,15 @@ RUN apk add --update \
         --with-jpeg-dir=/usr/include/ && \
     docker-php-ext-configure zip \
         --with-libzip && \
-    docker-php-ext-install \
+    NPROC=$(grep -c ^processor /proc/cpuinfo 2>/dev/null || 1) && \
+    docker-php-ext-install -j${NPROC} \
         intl gettext \
         mysqli pdo_mysql \
         exif \
         gd \
-        zip \
-        >/dev/null && \
-        pecl install mcrypt-1.0.1 && \
-        echo "extension=mcrypt.so" > /usr/local/etc/php/conf.d/mcrypt.ini && \
+        zip && \
+    pecl channel-update pecl.php.net && pecl install mcrypt-1.0.1 && \
+        docker-php-ext-enable mcrypt &&\
     apk del \
         icu-dev gettext-dev \
         freetype-dev libjpeg-turbo-dev libpng-dev \
