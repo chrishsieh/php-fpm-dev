@@ -30,6 +30,7 @@ RUN apt-get update && \
         intl gettext mysqli pdo_mysql exif gd zip && \
     pecl channel-update pecl.php.net && pecl install mcrypt-1.0.1 && \
         docker-php-ext-enable mcrypt && \
+    pecl install xdebug && docker-php-ext-enable xdebug && \
     apt-get purge -y \
         libpng-dev \
         libzip-dev \
