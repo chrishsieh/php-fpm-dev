@@ -10,7 +10,6 @@ RUN apt-get update && \
         gettext jq figlet \
         zip git ruby-full nodejs \
         libpng-dev \
-        libmcrypt-dev \
         libfreetype6-dev \
         libjpeg62-turbo-dev \
         libicu-dev locales locales-all && \
@@ -28,8 +27,7 @@ RUN apt-get update && \
     NPROC=$(grep -c ^processor /proc/cpuinfo 2>/dev/null || 1) && \
     docker-php-ext-install -j${NPROC} \
         intl gettext mysqli pdo_mysql exif gd zip && \
-    pecl channel-update pecl.php.net && pecl install mcrypt-1.0.1 && \
-        docker-php-ext-enable mcrypt && \
+    pecl channel-update pecl.php.net && \
     pecl install xdebug && docker-php-ext-enable xdebug && \
     apt-get purge -y \
         libpng-dev \
@@ -41,8 +39,8 @@ RUN apt-get update && \
     composer self-update && \
     gem install sass -v 3.4.25
 
-COPY ./presetup /usr/local/bin
-COPY ./php.ini /usr/local/etc/php/
+COPY ../presetup /usr/local/bin
+COPY ../php.ini /usr/local/etc/php/
 RUN chmod +x /usr/local/bin/presetup
 
 # Set work directory to the web host path
