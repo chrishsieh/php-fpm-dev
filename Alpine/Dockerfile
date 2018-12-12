@@ -27,6 +27,7 @@ RUN apk add --update \
         zip && \
     pecl channel-update pecl.php.net && pecl install mcrypt-1.0.1 && \
         docker-php-ext-enable mcrypt &&\
+    pecl install xdebug && docker-php-ext-enable xdebug && \
     apk del \
         icu-dev gettext-dev \
         freetype-dev libjpeg-turbo-dev libpng-dev \
