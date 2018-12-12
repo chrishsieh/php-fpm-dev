@@ -1,6 +1,6 @@
 FROM php:fpm-alpine
 
-RUN apk add --update \
+RUN apk add --update --no-cache $PHPIZE_DEPS \
         icu icu-dev \
         gettext gettext-dev \
         jq figlet ncurses \
@@ -8,7 +8,6 @@ RUN apk add --update \
         freetype freetype-dev \
         libjpeg-turbo libjpeg-turbo-dev \
         libpng libpng-dev \
-        gcc make libc-dev autoconf \
         git ruby-full npm composer python g++ && \
     docker-php-ext-configure gd \
         --with-gd \
@@ -25,7 +24,7 @@ RUN apk add --update \
         gd \
         zip && \
     pecl channel-update pecl.php.net &&\
-    pecl install xdebug && docker-php-ext-enable xdebug && \
+    pecl install xdebug-beta && docker-php-ext-enable xdebug && \
     apk del \
         icu-dev gettext-dev \
         freetype-dev libjpeg-turbo-dev libpng-dev \
@@ -35,8 +34,8 @@ RUN apk add --update \
     composer self-update && \
     gem install sass -v 3.4.25
 
-COPY ../presetup /usr/local/bin
-COPY ../php.ini /usr/local/etc/php/
+COPY ./presetup /usr/local/bin
+COPY ./php.ini /usr/local/etc/php/
 RUN chmod +x /usr/local/bin/presetup
 
 # Set work directory to the web host path
