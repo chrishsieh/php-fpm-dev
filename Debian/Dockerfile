@@ -2,7 +2,9 @@ FROM php:fpm
 
 ENV DEBCONF_NOWARNINGS yes
 
-RUN apt-get update && \
+# Make info file about this build
+RUN printf "Build of chrishsieh/php-fpm-dev:debian, date: %s\n" `date -u +"%Y-%m-%dT%H:%M:%SZ"` >> /etc/BUILD && \
+    apt-get update && \
     apt-get install -y gnupg2 && \
     curl -sL https://deb.nodesource.com/setup_8.x | bash - && \
     curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local/bin --filename=composer && \
@@ -37,6 +39,7 @@ RUN apt-get update && \
     apt-get autoremove -y && \
     npm i npm@latest -g && \
     composer self-update && \
+    composer global require hirak/prestissimo && \
     gem install sass -v 3.4.25
 
 COPY ./presetup /usr/local/bin

@@ -1,6 +1,9 @@
 FROM php:fpm-alpine
 
-RUN apk add --update --no-cache $PHPIZE_DEPS \
+# Make info file about this build
+RUN printf "Build of chrishsieh/php-fpm-dev:alpine, date: %s\n" `date -u +"%Y-%m-%dT%H:%M:%SZ"` >> /etc/BUILD && \
+    apk update && \
+    apk add --update $PHPIZE_DEPS \
         icu icu-dev \
         gettext gettext-dev \
         jq figlet ncurses \
@@ -32,6 +35,7 @@ RUN apk add --update --no-cache $PHPIZE_DEPS \
         autoconf && \
     npm i npm@latest -g && \
     composer self-update && \
+    composer global require hirak/prestissimo && \
     gem install sass -v 3.4.25
 
 COPY ./presetup /usr/local/bin
