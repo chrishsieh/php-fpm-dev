@@ -34,6 +34,7 @@ RUN printf "Build of chrishsieh/php-fpm-dev:alpine, date: %s\n" `date -u +"%Y-%m
         libzip-dev \
         autoconf && \
     npm i npm@latest -g && \
+    curl --compressed -o- -L https://yarnpkg.com/install.sh | ash && \
     composer self-update && \
     composer global require hirak/prestissimo && \
     gem install sass -v 3.4.25
