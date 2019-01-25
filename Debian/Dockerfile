@@ -38,6 +38,7 @@ RUN printf "Build of chrishsieh/php-fpm-dev:debian, date: %s\n" `date -u +"%Y-%m
         libicu-dev cmake && \
     apt-get autoremove -y && \
     npm i npm@latest -g && \
+    curl --compressed -o- -L https://yarnpkg.com/install.sh | bash && \
     composer self-update && \
     composer global require hirak/prestissimo && \
     gem install sass -v 3.4.25
