@@ -8,8 +8,8 @@ RUN printf "Build of chrishsieh/php-fpm-dev:debian, date: %s\n" `date -u +"%Y-%m
     apt-get install -y gnupg2 && \
     curl -sL https://deb.nodesource.com/setup_8.x | bash - && \
     curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local/bin --filename=composer && \
-    curl -sS https://dl.yarnpkg.com/debian/pubkey.gpg | sudo apt-key add - && \
-    echo "deb https://dl.yarnpkg.com/debian/ stable main" | sudo tee /etc/apt/sources.list.d/yarn.list && \
+    curl -sS https://dl.yarnpkg.com/debian/pubkey.gpg | apt-key add - && \
+    echo "deb https://dl.yarnpkg.com/debian/ stable main" | tee /etc/apt/sources.list.d/yarn.list && \
     apt-get install -y \
         gettext jq figlet \
         zip git ruby-full nodejs \
