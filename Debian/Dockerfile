@@ -8,13 +8,15 @@ RUN printf "Build of chrishsieh/php-fpm-dev:debian, date: %s\n" `date -u +"%Y-%m
     apt-get install -y gnupg2 && \
     curl -sL https://deb.nodesource.com/setup_8.x | bash - && \
     curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local/bin --filename=composer && \
+    curl -sS https://dl.yarnpkg.com/debian/pubkey.gpg | sudo apt-key add - && \
+    echo "deb https://dl.yarnpkg.com/debian/ stable main" | sudo tee /etc/apt/sources.list.d/yarn.list && \
     apt-get install -y \
         gettext jq figlet \
         zip git ruby-full nodejs \
         libpng-dev \
         libfreetype6-dev \
         libjpeg62-turbo-dev \
-        libicu-dev locales locales-all && \
+        libicu-dev locales locales-all yarn && \
     apt-get install -y curl cmake && \
     mkdir /tmp/libzip && cd /tmp/libzip && curl -sSLO https://libzip.org/download/libzip-1.5.1.tar.gz && \
     tar zxf libzip-1.5.1.tar.gz && cd libzip-1.5.1/ && mkdir build && cd build && cmake ../ && \
@@ -38,7 +40,6 @@ RUN printf "Build of chrishsieh/php-fpm-dev:debian, date: %s\n" `date -u +"%Y-%m
         libicu-dev cmake && \
     apt-get autoremove -y && \
     npm i npm@latest -g && \
-    curl --compressed -o- -L https://yarnpkg.com/install.sh | bash && \
     composer self-update && \
     composer global require hirak/prestissimo && \
     gem install sass -v 3.4.25
