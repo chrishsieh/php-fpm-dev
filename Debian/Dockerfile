@@ -3,7 +3,8 @@ FROM php:fpm
 ENV DEBCONF_NOWARNINGS yes
 
 # Make info file about this build
-RUN printf "Build of chrishsieh/php-fpm-dev:debian, date: %s\n" `date -u +"%Y-%m-%dT%H:%M:%SZ"` >> /etc/BUILD \
+RUN set -x \
+    && printf "Build of chrishsieh/php-fpm-dev:debian, date: %s\n" `date -u +"%Y-%m-%dT%H:%M:%SZ"` >> /etc/BUILD \
     && apt-get update \
     && apt-get install -y gnupg2 \
     && curl -sL https://deb.nodesource.com/setup_8.x | bash -\
@@ -16,6 +17,8 @@ RUN printf "Build of chrishsieh/php-fpm-dev:debian, date: %s\n" `date -u +"%Y-%m
         libfreetype6-dev \
         libjpeg62-turbo-dev \
         libicu-dev locales locales-all mysql-client wget \
+        libmcrypt4 libmcrypt-dev \
+        libmemcachedutil2 libmemcached-dev \
     && apt-get install -y curl cmake \
     && mkdir /tmp/libzip && cd /tmp/libzip && curl -sSLO https://libzip.org/download/libzip-1.5.1.tar.gz \
     && tar zxf libzip-1.5.1.tar.gz && cd libzip-1.5.1/ && mkdir build && cd build && cmake ../ \
@@ -48,6 +51,8 @@ RUN printf "Build of chrishsieh/php-fpm-dev:debian, date: %s\n" `date -u +"%Y-%m
         libzip-dev \
         libfreetype6-dev \
         libicu-dev cmake \
+        libmcrypt-dev \
+        libmemcached-dev \
     && apt-get autoremove -y \
     && npm i npm@latest -g \
     && composer self-update \

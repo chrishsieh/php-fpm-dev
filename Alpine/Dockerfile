@@ -1,7 +1,8 @@
 FROM php:fpm-alpine
 
 # Make info file about this build
-RUN printf "Build of chrishsieh/php-fpm-dev:alpine, date: %s\n" `date -u +"%Y-%m-%dT%H:%M:%SZ"` >> /etc/BUILD \
+RUN set -x \
+    && printf "Build of chrishsieh/php-fpm-dev:alpine, date: %s\n" `date -u +"%Y-%m-%dT%H:%M:%SZ"` >> /etc/BUILD \
     && apk update \
     && apk add --update $PHPIZE_DEPS \
         icu icu-dev \
@@ -12,6 +13,8 @@ RUN printf "Build of chrishsieh/php-fpm-dev:alpine, date: %s\n" `date -u +"%Y-%m
         libjpeg-turbo libjpeg-turbo-dev \
         libpng libpng-dev \
         git ruby-full npm composer python g++ mysql-client wget \
+        libmcrypt libmcrypt-dev \
+        libmemcached libmemcached-dev \
     && docker-php-ext-configure gd \
         --with-gd \
         --with-freetype-dir=/usr/include/ \
@@ -44,6 +47,8 @@ RUN printf "Build of chrishsieh/php-fpm-dev:alpine, date: %s\n" `date -u +"%Y-%m
         freetype-dev libjpeg-turbo-dev libpng-dev \
         libzip-dev \
         autoconf \
+        libmcrypt-dev \
+        libmemcached-dev \
     && npm i npm@latest -g \
     && composer self-update \
     && composer global require hirak/prestissimo \
