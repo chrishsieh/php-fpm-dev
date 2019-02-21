@@ -4,7 +4,6 @@ ENV DEBCONF_NOWARNINGS yes
 
 # Make info file about this build
 RUN set -x \
-    && printf "Build of chrishsieh/php-fpm-dev:debian, date: %s\n" `date -u +"%Y-%m-%dT%H:%M:%SZ"` >> /etc/BUILD \
     && apt-get update \
     && apt-get install -y gnupg2 \
     && curl -sL https://deb.nodesource.com/setup_8.x | bash -\

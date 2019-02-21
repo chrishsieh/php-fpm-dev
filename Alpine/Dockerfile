@@ -2,7 +2,6 @@ FROM php:fpm-alpine
 
 # Make info file about this build
 RUN set -x \
-    && printf "Build of chrishsieh/php-fpm-dev:alpine, date: %s\n" `date -u +"%Y-%m-%dT%H:%M:%SZ"` >> /etc/BUILD \
     && apk update \
     && apk add --update $PHPIZE_DEPS \
         icu icu-dev \
