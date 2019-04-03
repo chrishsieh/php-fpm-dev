@@ -12,7 +12,6 @@ RUN set -x \
         libjpeg-turbo libjpeg-turbo-dev \
         libpng libpng-dev \
         git ruby-full npm composer python g++ mysql-client wget \
-        libmcrypt libmcrypt-dev \
         libmemcached libmemcached-dev \
     && docker-php-ext-configure gd \
         --with-gd \
@@ -29,10 +28,6 @@ RUN set -x \
         gd \
         zip \
     && pecl channel-update pecl.php.net \
-    && pecl install mcrypt-1.0.2 \
-    && docker-php-ext-enable mcrypt \
-    && (rm -rf /usr/local/lib/php/test/mcrypt || true) \
-    && (rm -rf /usr/local/lib/php/doc/mcrypt || true) \
     && pecl install xdebug-2.7.0RC2 \
     && docker-php-ext-enable xdebug \
     && (rm -rf /usr/local/lib/php/test/xdebug || true) \
@@ -46,7 +41,6 @@ RUN set -x \
         freetype-dev libjpeg-turbo-dev libpng-dev \
         libzip-dev \
         autoconf \
-        libmcrypt-dev \
         libmemcached-dev \
     && npm i npm@latest -g \
     && composer self-update \
