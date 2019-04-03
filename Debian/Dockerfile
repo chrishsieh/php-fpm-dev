@@ -16,7 +16,6 @@ RUN set -x \
         libfreetype6-dev \
         libjpeg62-turbo-dev \
         libicu-dev locales locales-all mysql-client wget \
-        libmcrypt4 libmcrypt-dev \
         libmemcachedutil2 libmemcached-dev \
     && apt-get install -y curl cmake \
     && mkdir /tmp/libzip && cd /tmp/libzip && curl -sSLO https://libzip.org/download/libzip-1.5.1.tar.gz \
@@ -33,10 +32,6 @@ RUN set -x \
     && docker-php-ext-install -j${NPROC} \
         intl gettext mysqli pdo_mysql exif gd zip \
     && pecl channel-update pecl.php.net \
-    && pecl install mcrypt-1.0.2 \
-    && docker-php-ext-enable mcrypt \
-    && (rm -rf /usr/local/lib/php/test/mcrypt || true) \
-    && (rm -rf /usr/local/lib/php/doc/mcrypt || true) \
     && pecl install xdebug-2.7.0RC2 \
     && docker-php-ext-enable xdebug \
     && (rm -rf /usr/local/lib/php/test/xdebug || true) \
@@ -50,7 +45,6 @@ RUN set -x \
         libzip-dev \
         libfreetype6-dev \
         libicu-dev cmake \
-        libmcrypt-dev \
         libmemcached-dev \
     && apt-get autoremove -y \
     && npm i npm@latest -g \
