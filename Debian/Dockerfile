@@ -16,7 +16,7 @@ RUN set -x \
         libfreetype6-dev \
         libjpeg62-turbo-dev \
         libicu-dev locales locales-all mysql-client wget \
-        libmemcachedutil2 libmemcached-dev \
+        libmemcachedutil2 libmemcached-dev libc6 \
     && apt-get install -y curl cmake \
     && mkdir /tmp/libzip && cd /tmp/libzip && curl -sSLO https://libzip.org/download/libzip-1.5.1.tar.gz \
     && tar zxf libzip-1.5.1.tar.gz && cd libzip-1.5.1/ && mkdir build && cd build && cmake ../ \
